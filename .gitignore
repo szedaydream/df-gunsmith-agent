@@ -39,3 +39,6 @@ Thumbs.db
 data/聪聪/
 data/**/*.xlsx
 data/**/*.xlsx.xlsx
+
+data/game_raw/
+
