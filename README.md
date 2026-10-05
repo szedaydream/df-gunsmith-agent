@@ -54,7 +54,27 @@ validation_issues: ["声称共 12 个槽但只列了 10 条"]     fix_retried: 1
 
 ---
 
-## 三、架构
+## 三、领域数据不是手打的：从游戏客户端缓存里提取
+
+`tools/extract_game_cache.py`（449 行）从《三角洲行动》客户端落盘的 HTTP 响应缓存中，提取出**真实的官方数据**：
+
+| 产物 | 内容 | 体积 |
+|---|---|---|
+| `data/game/guns.json` | 枪械，**含官方真实数值** | 50 KB |
+| `data/game/attachments.json` | 配件，含优点 / 缺点 / 数值修正 | 268 KB |
+| `data/game/items.json` | 全部道具（枪 + 配件）规范化后的统一字典 | 318 KB |
+| `data/game/schemes.json` | 官方社区改枪方案（含改枪码） | 170 KB |
+| `data/game/enrichment.json` | 与 `gun_profiles.json` 对照后的「可补全字段」建议 | 11 KB |
+| `data/game/extract_report.md` | 本次提取的可读报告 | 5 KB |
+
+脚本对游戏目录**只读**（只 `open(..., 'rb')` 与列目录），并且**启动时与运行时各校验一次输出路径不在游戏目录内**，防止误写。
+
+> **这一层决定了项目的性质：方案里的数值有真实来源，不是模型的记忆。**
+> 也正因为如此，`plan_validator` 才敢拿「档案槽位数」去校验模型输出 —— **校验基准是真实数据，不是另一个模型的判断。**
+
+---
+
+## 四、架构
 
 ```
 浏览器（templates/chat.html）
@@ -167,15 +187,21 @@ python app.py             # 打开 http://127.0.0.1:5000
 │   ├── storage_service.py      SQLite：消息 / 画像 / 反馈 / 请求日志
 │   ├── plan_validator.py       ★ 出厂质检（零 token 规则校验）
 │   └── gun_profiles.py         枪械档案检索（60+ 枪）
+├── tools/
+│   └── extract_game_cache.py   从游戏客户端缓存提取真实数据的脚本（只读）
 ├── templates/chat.html         前端（SSE 订阅 + 状态提示 + 赞踩）
 ├── tests/
 │   ├── 测试集.md                15 题手工测试集（每次改动后回归）
 │   ├── run_testset.py          自动跑测试集并生成报告
 │   └── 测试报告_2026-08-16.md   一次真实回归的记录
 └── data/
-    ├── gun_profiles.json       ★ 60+ 枪械档案（结构化领域数据）
-    └── wiki_guns_full.json     档案构建的源数据
+    ├── gun_profiles.json       ★ 60+ 枪械档案（人工整理 + 提取数据补全）
+    ├── wiki_guns_full.json     档案构建的源数据
+    └── game/                   ★ 从客户端缓存提取的官方数据（见第三节）
 ```
+
+> `data/game_raw/`（游戏缓存的原始 JS）不入库 —— 它在 `.gitignore` 里，
+> 因为那是可重新提取的源材料，不属于本项目的产物。
 
 ---
 

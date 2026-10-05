@@ -288,6 +288,11 @@ def extract(game_dir: str, out_dir: str) -> dict:
         "unique_guns": len(guns),
         "unique_attachments": len(accs),
         "unique_schemes": len(schemes),
+        "total_builds": sum(len(s["children"]) for s in schemes.values()),
+        "unique_build_codes": len({
+            c["solution_code"]
+            for s in schemes.values() for c in s["children"] if c.get("solution_code")
+        }),
     }
 
     os.makedirs(out_dir, exist_ok=True)
@@ -374,7 +379,9 @@ def render_report(report, guns, accs, schemes, enrichment) -> str:
     A(f"| 唯一道具（枪 + 配件） | {report['unique_items']} |")
     A(f"| 枪械（含官方数值） | {report['unique_guns']} |")
     A(f"| 配件（含优缺点） | {report['unique_attachments']} |")
-    A(f"| 官方社区改枪方案 | {report['unique_schemes']} |")
+    A(f"| 官方推荐配装套数 | {report['unique_schemes']} |")
+    A(f"| 配装下的具体枪械配置 | {report['total_builds']} |")
+    A(f"| 其中带改枪码的配置 | {report['unique_build_codes']} |")
     A("")
 
     A("## 配件按槽位分布\n")
