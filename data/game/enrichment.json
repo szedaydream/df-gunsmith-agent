@@ -1,0 +1,593 @@
+{
+ "matched": {
+  "勇士": {
+   "game_objectID": 18020000009,
+   "game_slot_class": "冲锋枪",
+   "stats": {
+    "meatHarm": 36,
+    "fireSpeed": 700,
+    "muzzleVelocity": 500,
+    "control": 63,
+    "stable": 48,
+    "hipShot": 48,
+    "armorHarm": 35,
+    "capacity": 30,
+    "soundDistance": 300,
+    "shootDistance": 20,
+    "recoil": 40,
+    "fireMode": "单发,全自动",
+    "caliber": "ammo9x19"
+   },
+   "slot_ids": [
+    "6",
+    "2",
+    "20",
+    "11",
+    "31",
+    "8",
+    "5",
+    "44",
+    "3",
+    "28",
+    "1"
+   ],
+   "profile_slots": [
+    "枪口",
+    "枪管",
+    "前握把",
+    "后握把",
+    "枪托",
+    "枪托垫",
+    "弹匣",
+    "弹匣座",
+    "瞄具",
+    "拉机柄"
+   ],
+   "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
+   "all_attachment_slots_seen": [
+    "前握把",
+    "功能性配件",
+    "后握把",
+    "弹匣",
+    "护木",
+    "枪口",
+    "枪托",
+    "枪管",
+    "瞄具"
+   ]
+  },
+  "QSZ92G": {
+   "game_objectID": 18070000002,
+   "game_slot_class": "手枪",
+   "stats": {
+    "meatHarm": 34,
+    "fireMode": "单发",
+    "stable": 41,
+    "armorHarm": 32,
+    "capacity": 15,
+    "soundDistance": 300,
+    "hipShot": 77,
+    "fireSpeed": 375,
+    "shootDistance": 27,
+    "recoil": 55,
+    "control": 64,
+    "muzzleVelocity": 400,
+    "caliber": "ammo9x19"
+   },
+   "slot_ids": [
+    "6",
+    "2",
+    "18",
+    "11"
+   ],
+   "profile_slots": [
+    "枪口",
+    "枪管",
+    "瞄准镜",
+    "导轨"
+   ],
+   "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
+   "all_attachment_slots_seen": [
+    "前握把",
+    "功能性配件",
+    "后握把",
+    "弹匣",
+    "护木",
+    "枪口",
+    "枪托",
+    "枪管",
+    "瞄具"
+   ]
+  },
+  "沙漠之鹰": {
+   "game_objectID": 18070000004,
+   "game_slot_class": "手枪",
+   "stats": {
+    "shootDistance": 15,
+    "hipShot": 71,
+    "armorHarm": 53,
+    "fireSpeed": 207,
+    "fireMode": "单发",
+    "muzzleVelocity": 340,
+    "recoil": 40,
+    "capacity": 7,
+    "meatHarm": 56,
+    "control": 66,
+    "stable": 39,
+    "soundDistance": 300,
+    "caliber": "ammo.50"
+   },
+   "slot_ids": [
+    "6",
+    "2",
+    "18",
+    "11",
+    "5",
+    "1"
+   ],
+   "profile_slots": [
+    "枪口",
+    "枪管",
+    "弹匣",
+    "瞄准镜",
+    "下导轨",
+    "后握把"
+   ],
+   "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
+   "all_attachment_slots_seen": [
+    "前握把",
+    "功能性配件",
+    "后握把",
+    "弹匣",
+    "护木",
+    "枪口",
+    "枪托",
+    "枪管",
+    "瞄具"
+   ]
+  },
+  "93R": {
+   "game_objectID": 18070000006,
+   "game_slot_class": "手枪",
+   "stats": {
+    "muzzleVelocity": 400,
+    "meatHarm": 34,
+    "stable": 38,
+    "hipShot": 78,
+    "recoil": 44,
+    "armorHarm": 32,
+    "fireMode": "连发",
+    "fireSpeed": 508,
+    "capacity": 12,
+    "soundDistance": 300,
+    "shootDistance": 22,
+    "control": 67,
+    "caliber": "ammo9x19"
+   },
+   "slot_ids": [
+    "6",
+    "2",
+    "18",
+    "4",
+    "11",
+    "5",
+    "1"
+   ],
+   "profile_slots": [
+    "枪口",
+    "枪管",
+    "弹匣",
+    "瞄准镜",
+    "下导轨",
+    "后握把"
+   ],
+   "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
+   "all_attachment_slots_seen": [
+    "前握把",
+    "功能性配件",
+    "后握把",
+    "弹匣",
+    "护木",
+    "枪口",
+    "枪托",
+    "枪管",
+    "瞄具"
+   ]
+  },
+  "G18": {
+   "game_objectID": 18070000005,
+   "game_slot_class": "手枪",
+   "stats": {
+    "meatHarm": 23,
+    "recoil": 30,
+    "fireSpeed": 1172,
+    "fireMode": "全自动",
+    "caliber": "ammo9x19",
+    "stable": 43,
+    "shootDistance": 10,
+    "hipShot": 67,
+    "capacity": 17,
+    "muzzleVelocity": 400,
+    "soundDistance": 300,
+    "control": 62,
+    "armorHarm": 16
+   },
+   "slot_ids": [
+    "6",
+    "2",
+    "18",
+    "11",
+    "5",
+    "1"
+   ],
+   "profile_slots": [
+    "枪口",
+    "枪管",
+    "弹匣",
+    "瞄准镜",
+    "导轨",
+    "握把"
+   ],
+   "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
+   "all_attachment_slots_seen": [
+    "前握把",
+    "功能性配件",
+    "后握把",
+    "弹匣",
+    "护木",
+    "枪口",
+    "枪托",
+    "枪管",
+    "瞄具"
+   ]
+  },
+  ".357左轮": {
+   "game_objectID": 18070000003,
+   "game_slot_class": "手枪",
+   "stats": {
+    "fireMode": "单发",
+    "soundDistance": 300,
+    "recoil": 34,
+    "stable": 43,
+    "armorHarm": 39,
+    "shootDistance": 35,
+    "fireSpeed": 182,
+    "control": 62,
+    "capacity": 6,
+    "caliber": "ammo.357",
+    "meatHarm": 56,
+    "hipShot": 65,
+    "muzzleVelocity": 340
+   },
+   "slot_ids": [
+    "6",
+    "2",
+    "11",
+    "1"
+   ],
+   "profile_slots": [
+    "枪口",
+    "枪管",
+    "瞄准镜",
+    "握把",
+    "枪托"
+   ],
+   "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
+   "all_attachment_slots_seen": [
+    "前握把",
+    "功能性配件",
+    "后握把",
+    "弹匣",
+    "护木",
+    "枪口",
+    "枪托",
+    "枪管",
+    "瞄具"
+   ]
+  },
+  "M1911": {
+   "game_objectID": 18070000033,
+   "game_slot_class": "手枪",
+   "stats": {
+    "fireSpeed": 373,
+    "shootDistance": 15,
+    "stable": 40,
+    "muzzleVelocity": 400,
+    "soundDistance": 300,
+    "caliber": ".45ACP",
+    "meatHarm": 40,
+    "recoil": 39,
+    "control": 65,
+    "hipShot": 67,
+    "armorHarm": 30,
+    "capacity": 7,
+    "fireMode": "单发"
+   },
+   "slot_ids": [
+    "6",
+    "2",
+    "18",
+    "11",
+    "5",
+    "49",
+    "1",
+    "48"
+   ],
+   "profile_slots": [
+    "枪口",
+    "枪管",
+    "弹匣",
+    "瞄准镜",
+    "下导轨",
+    "后握把",
+    "扳机",
+    "击锤"
+   ],
+   "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
+   "all_attachment_slots_seen": [
+    "前握把",
+    "功能性配件",
+    "后握把",
+    "弹匣",
+    "护木",
+    "枪口",
+    "枪托",
+    "枪管",
+    "瞄具"
+   ]
+  },
+  "Marlin": {
+   "game_objectID": 18050000032,
+   "game_slot_class": "精确射手步枪",
+   "stats": {
+    "stable": 49,
+    "hipShot": 43,
+    "armorHarm": 25,
+    "shootDistance": 30,
+    "recoil": 47,
+    "fireSpeed": 100,
+    "capacity": 10,
+    "fireMode": "单发",
+    "soundDistance": 600,
+    "caliber": "ammo.45-70",
+    "meatHarm": 70,
+    "control": 55,
+    "muzzleVelocity": 750
+   },
+   "slot_ids": [],
+   "profile_slots": [
+    "枪口",
+    "枪管",
+    "枪托瞄具",
+    "副瞄具",
+    "杠杆"
+   ],
+   "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
+   "all_attachment_slots_seen": [
+    "前握把",
+    "功能性配件",
+    "后握把",
+    "弹匣",
+    "护木",
+    "枪口",
+    "枪托",
+    "枪管",
+    "瞄具"
+   ]
+  }
+ },
+ "profile_guns_without_game_data": [
+  "UZI",
+  "野牛",
+  "MP5",
+  "SMG-45",
+  "SR-3M",
+  "P90",
+  "MP7",
+  "Vector",
+  "QCQ171",
+  "MK4",
+  "G17",
+  "CAR-15",
+  "AKS-74U",
+  "M4A1",
+  "AKM",
+  "QBZ-95-1",
+  "K416",
+  "K437",
+  "AK-12",
+  "PTR-32",
+  "AS Val",
+  "腾龙",
+  "AUG",
+  "SG552",
+  "M16A4",
+  "G3",
+  "M7",
+  "SCAR-H",
+  "ASh-12",
+  "KC17",
+  "MK47",
+  "MCX LT",
+  "AR-57",
+  "RM277",
+  "SR9",
+  "Mini-14",
+  "M14",
+  "SKS",
+  "PSG-1",
+  "VSS",
+  "SVD",
+  "SR-25",
+  "SVCH",
+  "M249",
+  "M250",
+  "PKM",
+  "QJB-201",
+  "M870",
+  "M1014",
+  "S12K",
+  "725",
+  "FS12",
+  "SV-98",
+  "R93",
+  "M700",
+  "AWM",
+  "M82",
+  "复合弓"
+ ],
+ "game_guns_not_in_profile": [
+  {
+   "name": "SKS射手步枪",
+   "objectID": 18050000006
+  },
+  {
+   "name": "M4A1突击步枪",
+   "objectID": 18010000001
+  },
+  {
+   "name": "SG552突击步枪",
+   "objectID": 18010000017
+  },
+  {
+   "name": "SVD狙击步枪",
+   "objectID": 18050000004
+  },
+  {
+   "name": "AKM突击步枪",
+   "objectID": 18010000006
+  },
+  {
+   "name": "MK47突击步枪",
+   "objectID": 18010000043
+  },
+  {
+   "name": "AS Val突击步枪",
+   "objectID": 18010000037
+  },
+  {
+   "name": "SMG-45冲锋枪",
+   "objectID": 18020000006
+  },
+  {
+   "name": "AWM狙击步枪",
+   "objectID": 18060000011
+  },
+  {
+   "name": "M14射手步枪",
+   "objectID": 18050000005
+  },
+  {
+   "name": "MK4冲锋枪",
+   "objectID": 18020000012
+  },
+  {
+   "name": "KC17突击步枪",
+   "objectID": 18010000042
+  },
+  {
+   "name": "K437突击步枪",
+   "objectID": 18010000040
+  },
+  {
+   "name": "MP7冲锋枪",
+   "objectID": 18020000010
+  },
+  {
+   "name": "汤姆逊冲锋枪",
+   "objectID": 18020000046
+  },
+  {
+   "name": "P90冲锋枪",
+   "objectID": 18020000002
+  },
+  {
+   "name": "QBZ95-1突击步枪",
+   "objectID": 18010000008
+  },
+  {
+   "name": "M7战斗步枪",
+   "objectID": 18010000016
+  },
+  {
+   "name": "SR-3M紧凑突击步枪",
+   "objectID": 18020000008
+  },
+  {
+   "name": "S12K霰弹枪",
+   "objectID": 18030000002
+  },
+  {
+   "name": "M700狙击步枪",
+   "objectID": 18060000009
+  },
+  {
+   "name": "K416突击步枪",
+   "objectID": 18010000013
+  },
+  {
+   "name": "SR9射手步枪",
+   "objectID": 18050000008
+  },
+  {
+   "name": "SCARH战斗步枪",
+   "objectID": 18010000021
+  },
+  {
+   "name": "G3战斗步枪",
+   "objectID": 18010000023
+  },
+  {
+   "name": "AUG突击步枪",
+   "objectID": 18010000015
+  },
+  {
+   "name": "SR-25射手步枪",
+   "objectID": 18050000007
+  },
+  {
+   "name": "RM277突击步枪",
+   "objectID": 18010000049
+  },
+  {
+   "name": "M82狙击步枪",
+   "objectID": 18060000033
+  },
+  {
+   "name": "M250通用机枪",
+   "objectID": 18040000003
+  },
+  {
+   "name": "UZI冲锋枪",
+   "objectID": 18020000004
+  },
+  {
+   "name": "M249轻机枪",
+   "objectID": 18040000002
+  },
+  {
+   "name": "MP5冲锋枪",
+   "objectID": 18020000001
+  },
+  {
+   "name": "725双管霰弹枪",
+   "objectID": 18030000005
+  },
+  {
+   "name": "QCQ171冲锋枪",
+   "objectID": 18020000011
+  },
+  {
+   "name": "R93狙击步枪",
+   "objectID": 18060000008
+  },
+  {
+   "name": "MDR战斗步枪",
+   "objectID": 18010000051
+  },
+  {
+   "name": "M16A4突击步枪",
+   "objectID": 18010000014
+  }
+ ]
+}

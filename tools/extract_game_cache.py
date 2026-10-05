@@ -333,9 +333,7 @@ def build_enrichment(guns: dict, accs: dict, schemes: dict) -> dict:
         if g.get("name"):
             by_name[g["name"].lower()] = g
 
-    acc_by_slot = collections.defaultdict(list)
-    for a in accs.values():
-        acc_by_slot[a.get("slot")].append(a)
+    all_slots = sorted({a.get("slot") for a in accs.values() if a.get("slot")})
 
     matched_game_ids = set()
     for pname, prof in profiles.items():
@@ -345,16 +343,14 @@ def build_enrichment(guns: dict, accs: dict, schemes: dict) -> dict:
             out["profile_guns_without_game_data"].append(pname)
             continue
         matched_game_ids.add(hit["objectID"])
-        slots = sorted({a.get("slot") for a in acc_by_slot.values() for a in a if a.get("slot")})
         out["matched"][pname] = {
             "game_objectID": hit["objectID"],
             "game_slot_class": hit.get("slot"),
             "stats": hit.get("stats"),
             "slot_ids": hit.get("slot_ids"),
             "profile_slots": prof.get("slots"),
-            "profile_stats_missing": True,
             "note": "游戏侧只提供槽位ID，槽位中文名需服务端下发；档案里的 slots 仍是人工整理",
-            "available_attachment_slots": slots,
+            "all_attachment_slots_seen": all_slots,
         }
     for g in guns.values():
         if g["objectID"] not in matched_game_ids:
