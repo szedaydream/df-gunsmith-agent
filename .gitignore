@@ -1,0 +1,41 @@
+# ============ 密钥与配置：最重要的一条 ============
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets.json
+
+# ============ 运行产物 ============
+__pycache__/
+*.py[cod]
+*.log
+server.log
+.venv/
+venv/
+
+# 运行期数据（对话、画像、请求日志都会写进这里，属于本机状态，不该进仓库）
+data/*.db
+data/*.db-journal
+data/conversations.json
+data/*.xlsx
+data/*.xlsx.xlsx
+
+# 但领域数据要提交 —— 枪械档案是人工整理出来的资产
+!data/gun_profiles.json
+!data/wiki_guns_full.json
+!data/wiki_text.txt
+
+# ============ 编辑器 / 系统 ============
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.bak
+
+# ============ 第三方参考资料（不属于本项目，且体积大）============
+# data/聪聪/ 是收集来的武器排行图与改枪码合集，版权属于原作者，
+# 不应该放进公开仓库；本项目运行不需要它。
+data/聪聪/
+data/**/*.xlsx
+data/**/*.xlsx.xlsx

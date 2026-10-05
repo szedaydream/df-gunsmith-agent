@@ -1,0 +1,17 @@
+# 改枪顾问 Agent 运行依赖
+# 安装：pip install -r requirements.txt
+
+# Web 框架
+flask>=2.3
+
+# 大模型调用（任何 OpenAI 兼容厂商都用这一个 SDK）
+openai>=1.0
+
+# 读取 .env 配置
+python-dotenv>=1.0
+
+# 搜索适配器发 HTTP 请求
+requests>=2.28
+
+# 测试集自动运行（tests/run_testset.py）
+pandas>=2.0

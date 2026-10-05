@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三角洲行动 · 改枪顾问</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { max-width: 680px; margin: 40px auto; font-family: "Microsoft YaHei", sans-serif;
+           background: #1a1d23; color: #e0e0e0; padding: 0 16px; }
+    h2 { color: #d4a017; }
+    .subtitle { color: #888; font-size: 13px; margin-top: -12px; }
+    #chat { border: 1px solid #333; background: #22262e; border-radius: 8px;
+            height: 460px; overflow-y: auto; padding: 14px; margin-bottom: 12px; }
+    .msg { margin: 8px 0; padding: 8px 12px; border-radius: 8px; line-height: 1.6;
+           white-space: pre-wrap; /* 保留方案卡的换行排版 */ }
+    .user { background: #2d4a6b; text-align: left; margin-left: 60px; }
+    .ai   { background: #2a2e37; margin-right: 60px; }
+    .sys  { color: #888; font-size: 12px; text-align: center; background: none; }
+    /* 状态提示：正在搜索 / 正在写方案 */
+    .status { color: #d4a017; font-size: 12px; margin: 4px 0; animation: blink 1.2s infinite; }
+    @keyframes blink { 50% { opacity: .4; } }
+    /* 思考过程：默认折叠，点开能看 */
+    details.think { margin: 8px 0; margin-right: 60px; font-size: 12px; color: #999;
+                    background: #23272f; border-left: 2px solid #555; border-radius: 4px; padding: 6px 10px; }
+    details.think summary { cursor: pointer; color: #777; }
+    details.think .think-body { white-space: pre-wrap; margin-top: 6px; max-height: 200px; overflow-y: auto; }
+    .input-row { display: flex; gap: 8px; }
+    input { flex: 1; padding: 10px; border-radius: 6px; border: 1px solid #333;
+            background: #2a2e37; color: #e0e0e0; font-size: 14px; }
+    button { padding: 10px 20px; border: none; border-radius: 6px;
+             background: #d4a017; color: #1a1d23; font-weight: bold; cursor: pointer; }
+    button:hover { background: #e5b32a; }
+    button:disabled { background: #555; cursor: not-allowed; }
+    /* 赞/踩：回答气泡右下角的小按钮 */
+    .fb-row { display: flex; gap: 6px; justify-content: flex-end; margin: -2px 60px 8px 0; }
+    .fb-btn { padding: 2px 8px; font-size: 13px; background: none; border: 1px solid #444;
+              border-radius: 5px; color: #888; cursor: pointer; font-weight: normal; }
+    .fb-btn:hover { background: #2a2e37; color: #ccc; }
+    .fb-btn.picked { border-color: #d4a017; color: #d4a017; }
+    .fb-thanks { font-size: 11px; color: #666; align-self: center; }
+    /* 画像标签：顾问记住了你什么，不喜欢可以一键忘掉 */
+    #profileBar { display: none; font-size: 12px; color: #999; margin: -6px 0 8px; }
+    #profileBar .tag { background: #2a2e37; border: 1px solid #3a3e47; border-radius: 10px;
+                       padding: 1px 8px; margin-right: 4px; color: #b8a35c; }
+    #forgetBtn { color: #666; cursor: pointer; text-decoration: underline; margin-left: 6px; }
+    #forgetBtn:hover { color: #aaa; }
+  </style>
+</head>
+<body>
+  <h2>🔫 三角洲行动 · 改枪顾问</h2>
+  <p class="subtitle">告诉我武器和打法（模式 / 交战距离），我给你出改枪方案
+    <a href="#" id="clearBtn" style="float:right;color:#888;font-size:12px;">🗑️ 清空对话</a>
+  </p>
+  <div id="profileBar">🧠 已记住：<span id="profileTags"></span><a id="forgetBtn">忘记我</a></div>
+  <div id="chat"></div>
+  <div class="input-row">
+    <input id="msg" placeholder="例如：帮我改把 M4A1，全面战场打中远距离"
+           onkeydown="if(event.key==='Enter') send()">
+    <button id="sendBtn" onclick="send()">发送</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function add(role, text) {
+      // 创建一个新气泡贴到聊天区，返回元素（流式时要往里追加文字）
+      const div = document.createElement('div');
+      div.className = 'msg ' + role;
+      div.textContent = text;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+      return div;
+    }
+
+    add('sys', '顾问已上线，试试：「帮我改把 M4A1」');
+
+    // 画像标签：顾问跨对话记住的偏好（水平/取向/预算/模式）
+    const profileBar = document.getElementById('profileBar');
+    const profileTags = document.getElementById('profileTags');
+
+    function renderProfile(profile) {
+      const entries = Object.entries(profile || {}).filter(([k, v]) => v);
+      profileBar.style.display = entries.length ? 'block' : 'none';
+      profileTags.innerHTML = entries
+        .map(([k, v]) => `<span class="tag">${k} ${v}</span>`).join('');
+    }
+
+    // 页面加载时拉一次；之后每轮回答的 meta 事件会带回最新画像
+    fetch('/profile').then(r => r.json()).then(d => renderProfile(d.profile));
+
+    document.getElementById('forgetBtn').onclick = async () => {
+      if (!confirm('让顾问忘掉记住的偏好？（对话记录不受影响）')) return;
+      await fetch('/forget_profile', {method: 'POST'});
+      renderProfile({});
+    };
+
+    // 赞/踩：在 AI 气泡下面贴一对小按钮，评价落库（重复点=改主意）
+    function addFeedbackRow(aiDiv, messageId) {
+      const row = document.createElement('div');
+      row.className = 'fb-row';
+      const thanks = document.createElement('span');
+      thanks.className = 'fb-thanks';
+      for (const [icon, rating] of [['👍', 1], ['👎', -1]]) {
+        const btn = document.createElement('button');
+        btn.className = 'fb-btn';
+        btn.textContent = icon;
+        btn.onclick = async () => {
+          const resp = await fetch('/feedback', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({message_id: messageId, rating: rating})
+          });
+          if (!resp.ok) return;
+          row.querySelectorAll('.fb-btn').forEach(b => b.classList.remove('picked'));
+          btn.classList.add('picked');
+          thanks.textContent = '已记录，谢谢反馈';
+          clearTimeout(row._t);
+          row._t = setTimeout(() => thanks.textContent = '', 3000);
+        };
+        row.appendChild(btn);
+      }
+      row.appendChild(thanks);
+      aiDiv.insertAdjacentElement('afterend', row);
+    }
+
+    // 清空对话：删后端记录 + 清空聊天区
+    document.getElementById('clearBtn').onclick = async (e) => {
+      e.preventDefault();
+      if (!confirm('确定清空当前对话记录？')) return;
+      await fetch('/clear', {method: 'POST'});
+      chat.innerHTML = '';
+      add('sys', '记录已清空，开一场新对话吧');
+    };
+
+    async function send() {
+      const input = document.getElementById('msg');
+      const text = input.value.trim();
+      if (!text) return;
+      add('user', text);
+      input.value = '';
+      sendBtn.disabled = true;   // 生成期间禁止连发
+
+      // 三个可变的"容器"：状态行、思考折叠框、正文气泡，事件到了再创建
+      let statusDiv = null, thinkBody = null, aiDiv = null;
+      let msgId = null;   // done 事件带回的回答 id，赞/踩要靠它指认对象
+
+      try {
+        const resp = await fetch('/send_message', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({message: text})
+        });
+        if (!resp.ok) {
+          const err = await resp.json().catch(() => ({}));
+          add('ai', '😔 ' + (err.error || '出了点问题，请稍后再试'));
+          return;
+        }
+
+        // 流式读取：SSE 每条事件是 "data: {json}\n\n"，用 \n\n 切
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buf = '';
+        while (true) {
+          const {done, value} = await reader.read();
+          if (done) break;
+          buf += decoder.decode(value, {stream: true});
+          let idx;
+          while ((idx = buf.indexOf('\n\n')) >= 0) {
+            const line = buf.slice(0, idx).trim();
+            buf = buf.slice(idx + 2);
+            if (!line.startsWith('data:')) continue;
+            const ev = JSON.parse(line.slice(5));
+
+            if (ev.type === 'meta') {              // 元信息：画像可能刚更新过
+              if (ev.profile) renderProfile(ev.profile);
+            } else if (ev.type === 'status') {     // 状态提示：正在搜索/正在写方案
+              if (!statusDiv) { statusDiv = add('sys status', ''); }
+              statusDiv.textContent = ev.text;
+            } else if (ev.type === 'thinking') { // 思考过程：塞进折叠框
+              if (!thinkBody) {
+                const d = document.createElement('details');
+                d.className = 'think';
+                d.innerHTML = '<summary>💭 思考过程（点开查看）</summary>';
+                thinkBody = document.createElement('div');
+                thinkBody.className = 'think-body';
+                d.appendChild(thinkBody);
+                chat.appendChild(d);
+              }
+              thinkBody.textContent += ev.delta;
+            } else if (ev.type === 'answer') {   // 正文：逐字流进气泡
+              if (!aiDiv) { aiDiv = add('ai', ''); }
+              aiDiv.textContent += ev.delta;
+            } else if (ev.type === 'error') {
+              add('ai', ev.text);
+            } else if (ev.type === 'done') {
+              msgId = ev.message_id;
+            }
+            chat.scrollTop = chat.scrollHeight;  // 边收边滚到底部
+          }
+        }
+      } catch (e) {
+        add('ai', '😔 网络连接失败，请检查服务器是否在运行');
+      } finally {
+        if (statusDiv) statusDiv.remove();   // 状态行是过程信息，完事就撤
+        if (aiDiv && msgId) addFeedbackRow(aiDiv, msgId);   // 正文气泡贴赞/踩
+        sendBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
